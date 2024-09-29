@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update a code snippet
-router.put('/api/codes/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const updatedCode = await Code.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updatedCode);
@@ -43,7 +43,7 @@ router.put('/api/codes/:id', async (req, res) => {
 });
 
 // Delete a code snippet
-router.delete('/api/codes/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     await Code.findByIdAndDelete(req.params.id);
     res.json({ message: 'Code snippet deleted' });
