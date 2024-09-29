@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors()); // Allow all origins. Adjust this for production.
 app.use(express.json()); // To parse JSON bodies
 
 // MongoDB connection
@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 const codeRoutes = require('./routes/codeRoutes');
 app.use('/api/codes', codeRoutes);
 
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
