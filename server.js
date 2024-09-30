@@ -20,9 +20,13 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Code Snippets API');
 });
 
-// Define routes for code snippets
-const codeRoutes = require('./routes/codeRoutes');
+// Routes
+const codeRoutes = require('./routes/codeRoutes'); // Existing code-related routes
+const authRoutes = require('./routes/auth'); // User authentication routes
+
+// Use the routes
 app.use('/api/codes', codeRoutes);
+app.use('/api/auth', authRoutes); // Add this line for user auth (login, register)
 
 // Start the server
 app.listen(PORT, () => {
