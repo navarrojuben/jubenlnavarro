@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 // Set up CORS to only allow specific origins
 const allowedOrigins = [
   'http://localhost:3000', // Frontend development URL
-  'https://https://jubenlnavarro.netlify.app', // Frontend production URL
+  'https://jubenlnavarro.netlify.app', // Frontend production URL
 ];
 
 const corsOptions = {
@@ -33,7 +33,10 @@ app.use(express.json()); // To parse JSON bodies
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.log('MongoDB connection error:', err));
+  .catch((err) => {
+    console.log('MongoDB connection error:', err);
+    process.exit(1); // Exit the process if connection fails
+  });
 
 // Sample route to test the server
 app.get('/', (req, res) => {
