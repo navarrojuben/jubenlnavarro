@@ -14,7 +14,7 @@ app.use(cors({
             "http://localhost:4000",
             "https://jubenlnavarro.netlify.app"
           ], // Allow all origins for now
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // Allow cookies/credentials to be sent
 }));
 
