@@ -41,7 +41,7 @@ app.use('/api/codes', codeRoutes);
 
 
 // connect to db
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     // listen for requests
     app.listen(process.env.PORT, () => {

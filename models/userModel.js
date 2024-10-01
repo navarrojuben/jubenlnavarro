@@ -22,7 +22,7 @@ userSchema.statics.signup = async function(username, password) {
   // validation
   if (!username || !password) {
     throw Error('All fields must be filled')
-  }else{}
+  }
   // if (!validator.isEmail(email)) {
   //   throw Error('Email not valid')
   // }
@@ -31,14 +31,12 @@ userSchema.statics.signup = async function(username, password) {
   // }
 
   const exists = await this.findOne({ username })
-
   if (exists) {
     throw Error('username already in use')
   }
 
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
-
   const user = await this.create({ username, password: hash })
 
   return user
