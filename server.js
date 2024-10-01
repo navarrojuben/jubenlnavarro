@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 // Set up CORS to only allow specific origins
 const allowedOrigins = [
   'http://localhost:3000', // Frontend development URL
-  'https://your-production-frontend.com', // Frontend production URL
+  'https://https://jubenlnavarro.netlify.app', // Frontend production URL
 ];
 
 const corsOptions = {
