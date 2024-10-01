@@ -1,57 +1,53 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
 require('dotenv').config();
 
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+
+
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; // Default to 5000 if not set
 
-// Middleware
-
-// Set up CORS to only allow specific origins
+// CORS settings
 const allowedOrigins = [
-  'http://localhost:3000', // Frontend development URL
+  'http://localhost:3000',
+  "http://localhost:4000", // Frontend development URL
   'https://jubenlnavarro.netlify.app', // Frontend production URL
 ];
-
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true, // Allow cookies to be sent with requests
+  credentials: true,
 };
 
-app.use(cors(corsOptions)); // Apply CORS with options
 
-app.use(express.json()); // To parse JSON bodies
+app.use(cors(corsOptions)); // Apply CORS middleware
+app.use(express.json()); // Parse JSON bodies
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => {
-    console.log('MongoDB connection error:', err);
-    process.exit(1); // Exit the process if connection fails
-  });
 
-// Sample route to test the server
-app.get('/', (req, res) => {
-  res.send('Welcome to the Code Snippets API');
-});
+const linkRoutes = require('./routes/links')
+const userRoutes = require('./routes/user')
+const codeRoutes = require('./routes/code');
 
-// Routes
-const codeRoutes = require('./routes/codeRoutes'); // Existing code-related routes
-const authRoutes = require('./routes/auth'); // User authentication routes
-
-// Use the routes
+// routes
+app.use('/api/user', userRoutes);
+app.use('/api/links', linkRoutes);
 app.use('/api/codes', codeRoutes);
-app.use('/api/auth', authRoutes); // Add this line for user auth (login, register)
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+// connect to db
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    // listen for requests
+    app.listen(process.env.PORT, () => {
+      console.log('connected to db & listening on port', process.env.PORT)
+    })
+  })
+  .catch((error) => {
+    console.log(error)
+  })
