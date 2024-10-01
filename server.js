@@ -7,7 +7,27 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors()); // Allow all origins. Adjust this for production.
+
+// Set up CORS to only allow specific origins
+const allowedOrigins = [
+  'http://localhost:3000', // Frontend development URL
+  'https://your-production-frontend.com', // Frontend production URL
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Allow cookies to be sent with requests
+};
+
+app.use(cors(corsOptions)); // Apply CORS with options
+
 app.use(express.json()); // To parse JSON bodies
 
 // MongoDB connection
