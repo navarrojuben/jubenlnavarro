@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000; // Default to 5000 if not set
 const allowedOrigins = [
   'http://localhost:3000',
   "http://localhost:4000", // Frontend development URL
-  'https://jubenlnavarro.netlify.app', // Frontend production URL
+  'https://jubenlnavarro.up.railway.app', // Frontend production URL
 ];
 const corsOptions = {
   origin: function (origin, callback) {
