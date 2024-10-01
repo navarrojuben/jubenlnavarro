@@ -7,22 +7,22 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS configuration (allow all for testing)
-app.use(cors({
+// CORS configuration
+const corsOptions = {
   origin: [
-            "http://localhost:3000",
-            "http://localhost:4000",
-            "https://jubenlnavarro.netlify.app",
-            "https://jubenlnavarro.up.railway.app"
-          ], // Allow all origins for now
+    "http://localhost:3000",
+    "http://localhost:4000",
+    "https://jubenlnavarro.netlify.app",
+    "https://jubenlnavarro.up.railway.app"
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  credentials: true, // Allow cookies/credentials to be sent
-}));
+  credentials: true,
+};
 
-// Enable pre-flight requests for all routes
-app.options('*', cors());
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
-// Middleware
+// Middleware for handling JSON
 app.use(express.json());
 
 // Request logging middleware
@@ -31,6 +31,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// Define routes
 const linkRoutes = require('./routes/links');
 const userRoutes = require('./routes/user');
 const codeRoutes = require('./routes/code');
@@ -48,5 +49,5 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.log('Database connection error:', error);
   });
