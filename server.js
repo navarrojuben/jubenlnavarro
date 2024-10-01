@@ -13,7 +13,7 @@ app.use(cors({
             "http://localhost:3000",
             "http://localhost:4000",
             "https://jubenlnavarro.netlify.app",
-            "https://jubenlnavarro.up.railway.app/api"
+            "https://jubenlnavarro.up.railway.app"
           ], // Allow all origins for now
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   credentials: true, // Allow cookies/credentials to be sent
