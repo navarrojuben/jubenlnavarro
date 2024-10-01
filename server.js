@@ -15,13 +15,15 @@ const allowedOrigins = [
   'https://jubenlnavarro.netlify.app', // Frontend production URL
 ];
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  // origin: function (origin, callback) {
+  //   if (!origin || allowedOrigins.includes(origin)) {
+  //     callback(null, true);
+  //   } else {
+  //     callback(new Error('Not allowed by CORS'));
+  //   }
+  // },
+
+  origin: '*',
   credentials: true,
 };
 
