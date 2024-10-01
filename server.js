@@ -8,29 +8,19 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 5000; // Default to 5000 if not set
 
-// CORS settings
-const allowedOrigins = [
-  'http://localhost:3000',
-  "http://localhost:4000", // Frontend development URL
-  'https://jubenlnavarro.netlify.app', // Frontend production URL
-];
-const corsOptions = {
-  // origin: function (origin, callback) {
-  //   if (!origin || allowedOrigins.includes(origin)) {
-  //     callback(null, true);
-  //   } else {
-  //     callback(new Error('Not allowed by CORS'));
-  //   }
-  // },
 
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow specific methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
-  credentials: true,
-};
+//cors
+app.use(cors({
+  origin:
+  [
+    "http://localhost:3000",
+    "http://localhost:4000",
+    "https://jubenlnavarro.netlify.app"
+  ]
+}))
 
 
-app.use(cors(corsOptions)); // Apply CORS middleware
+//middleware
 app.use(express.json()); // Parse JSON bodies
 
 // Request logging middleware
