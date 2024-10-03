@@ -75,18 +75,6 @@ const deleteLink = async (req, res) => {
 const updateLink = async (req, res) => {
   const { id } = req.params
 
-  let emptyFields = []
-
-  if(!name) {
-    emptyFields.push('name')
-  }
-  if(!link) {
-    emptyFields.push('link')
-  } 
-  if(emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in required fields', emptyFields })
-  }
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'No such link'})
   }
