@@ -40,14 +40,16 @@ app.use((req, res, next) => {
 });
 
 // Define routes
-const linkRoutes = require('./routes/links');
-const userRoutes = require('./routes/user');
-const codeRoutes = require('./routes/code');
+const linkRoutes  = require('./routes/links');
+const userRoutes  = require('./routes/user');
+const codeRoutes  = require('./routes/code');
+const eventRoutes = require('./routes/events');
 
 // Routes
 app.use('/api/user', userRoutes);
 app.use('/api/links', linkRoutes);
 app.use('/api/codes', codeRoutes);
+app.use('/api/events', eventRoutes);
 
 // Connect to the database
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
