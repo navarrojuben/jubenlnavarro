@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 
 // Add a new code snippet
 router.post('/', async (req, res) => {
-  const { title, description, code, language } = req.body;
+  const { title, description, code, language, username } = req.body;
 
   const newCode = new Code({
     title,
