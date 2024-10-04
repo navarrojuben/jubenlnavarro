@@ -3,10 +3,21 @@ const Code = require('../models/Code');
 
 const router = express.Router();
 
-// Get all code snippets
+// Get code snippets, optionally filtered by username
 router.get('/', async (req, res) => {
   try {
-    const codes = await Code.find();
+    const { username } = req.query; // Extract the username from query parameters
+
+    let codes;
+    
+    if (username) {
+      // If a username is provided, filter by username
+      codes = await Code.find({ username });
+    } else {
+      // If no username is provided, return all code snippets
+      codes = await Code.find();
+    }
+
     res.json(codes);
   } catch (err) {
     res.status(500).json({ message: err.message });
