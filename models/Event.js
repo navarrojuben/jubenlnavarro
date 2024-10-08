@@ -24,9 +24,6 @@ const eventSchema = new Schema({
   }, recurrence: {
     type: String, 
     default: 'None',
-  },
-  recurrencedate: {
-    type: Date, // Optional: If you want the recurrence to stop at a certain date
   }
 }, { timestamps: true });
 
