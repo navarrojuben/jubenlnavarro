@@ -21,6 +21,13 @@ const eventSchema = new Schema({
   username: {
     type: String,
     required: true // Ensure every event is tied to a user
+  }, recurrence: {
+    type: String,
+    enum: ['None', 'Daily', 'Weekly', 'Monthly', 'Yearly'], // Simple recurrence options
+    default: 'None',
+  },
+  recurrenceEndDate: {
+    type: Date, // Optional: If you want the recurrence to stop at a certain date
   }
 }, { timestamps: true });
 
