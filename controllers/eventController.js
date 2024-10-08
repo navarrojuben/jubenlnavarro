@@ -19,7 +19,7 @@ const createEvent = async (req, res) => {
   const { username } = req.user; // Extracted from requireAuth
 
   try {
-    const event = await Event.create({ title, type, description, date, username });
+    const event = await Event.create({ title, type, description, date, username, recurrence, recurrenceEndDate});
     res.status(201).json(event);
   } catch (error) {
     res.status(400).json({ error: 'Unable to create event' });
@@ -40,7 +40,7 @@ const updateEvent = async (req, res) => {
   try {
     // Allow master users to update any event, else restrict to their own events
     const query = isMasterUser ? { _id: id } : { _id: id, username };
-    const updatedEvent = await Event.findOneAndUpdate(query, { title, type, description, date }, { new: true });
+    const updatedEvent = await Event.findOneAndUpdate(query, { title, type, description, date, recurrence, recurrenceEndDate }, { new: true });
 
     if (!updatedEvent) {
       return res.status(404).json({ error: 'Event not found or not authorized' });
