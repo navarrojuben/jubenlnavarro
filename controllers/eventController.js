@@ -15,9 +15,10 @@ const getEvents = async (req, res) => {
 
 // Create a new event
 const createEvent = async (req, res) => {
-  const { title, type, description, date } = req.body;
+  const { title, type, description, date, recurrence } = req.body;
   const { username } = req.user; // Extracted from requireAuth
-
+  
+  console.log(recurrence)
   try {
     const event = await Event.create({ title, type, description, date, username, recurrence});
     res.status(201).json(event);
@@ -29,7 +30,7 @@ const createEvent = async (req, res) => {
 // Update an event
 const updateEvent = async (req, res) => {
   const { id } = req.params; // Event ID from URL
-  const { title, type, description, date } = req.body;
+  const { title, type, description, date,  recurrence } = req.body;
   const { username } = req.user; // Extracted from requireAuth
 
   // Check if the user is a master user
